@@ -111,7 +111,13 @@ var row = {
   paddingLeft: '5%',
   paddingRight: '5%'
 };
+// EXTERNAL MODULE: external "axios"
+var external__axios_ = __webpack_require__(6);
+var external__axios__default = /*#__PURE__*/__webpack_require__.n(external__axios_);
+
 // CONCATENATED MODULE: ./components/App.js
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -119,6 +125,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -134,12 +141,13 @@ var App_App = function (_Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
     _this.state = {
-      query: '',
+      featuredChannel: '',
       data: ''
     };
     _this.handleRequest = _this.handleRequest.bind(_this);
     _this.request = _this.request.bind(_this);
-    _this.getAuth = _this.getAuth.bind(_this);
+    _this.post = _this.post.bind(_this);
+    // this.getAuth = this.getAuth.bind(this)
     return _this;
   }
 
@@ -147,52 +155,125 @@ var App_App = function (_Component) {
     key: 'handleRequest',
     value: function handleRequest(e) {
       this.setState({
-        query: e.target.value
+        featuredChannel: e.target.value
       });
     }
+
+    // getAuth() {
+    //   // let URL = `https://api.vimeo.com/oauth/authorize/client`
+    //   let URL = `https://api.vimeo.com/oauth/authorize/client&grant_type=client_credentials`
+    //   let client_id = '2bfaa99affb5992f96a7bd40a8198349dbeb5159',
+    //       client_secret = '9Tf7g9z9jHc9AwkEz3OTIJN1cDP5LMrBh5fqVyi9gB29XMo4QAdD/GWk0o5AKdHs8gUZrg1UxcR2H7U6FIX/esUaUxCAxszYjIhDutjGXO0XAaTohDX3rrsrlt7Avwja',
+    //       credentials = client_id + ':' + client_secret
+    //   fetch(URL, {
+    //     method: "POST",
+    //     cache: "default",
+    //     accept: "application/vnd.vimeo.*+json;version=3.4",
+    //     ContentType: "application/json",
+    //     Authorization : `basic ${atob(credentials)}`
+    //   })
+    //   .then( res => {
+    //     console.log(`called ${ URL }`)
+    //     return res.json()
+    //   })
+    //   .then(json => {
+    //     console.log(`json = ${JSON.stringify(json)}`)
+    //   })
+    //   .catch(error => {
+    //     console.log(`${error}: failed to fetch from ${ URL }`)
+    //     console.dir(error)
+    //   })
+    // }
+
+    // <Button outline color="primary" style={{ width: '100%', height: '180px', fontSize: '80px'}} onClick={ () => this.getAuth()}>getAuth</Button>
+
+    // request() {
+    //   let URL = `https://api.vimeo.com/channels`,
+    //       // authToken = "7962960ba98f28b871cfe391e88f65f3"
+    //       // authToken = "d21ab739c3d0b5c0906ec55ef1d6da28"
+    //       authToken = "af9d6f3e23c4aaaa1b3d35a8ea73d25e"
+    //   fetch(URL, {
+    //     method: "GET",
+    //     cache: "default",
+    //     accept: "application/vnd.vimeo.*+json;version=3.4",
+    //     ContentType: "application/json",
+    //     Authorization: `Bearer ${authToken} https://api.vimeo.com`
+    //   })
+    //   .then( res => {
+    //     console.log(`called ${ URL }`)
+    //     return res.json()
+    //   })
+    //   .then(json => {
+    //     console.log(`json = ${JSON.stringify(json)}`)
+    //   })
+    //   .catch(error => {
+    //     console.log(`${error}: failed to fetch from ${ URL }`)
+    //     console.dir(error)
+    //   })
+    // }
+
   }, {
-    key: 'getAuth',
-    value: function getAuth() {
-      // let URL = `https://api.vimeo.com/oauth/authorize/client`
-      var URL = 'https://api.vimeo.com/oauth/authorize/client&grant_type=client_credentials';
-      var client_id = '2bfaa99affb5992f96a7bd40a8198349dbeb5159',
-          client_secret = '9Tf7g9z9jHc9AwkEz3OTIJN1cDP5LMrBh5fqVyi9gB29XMo4QAdD/GWk0o5AKdHs8gUZrg1UxcR2H7U6FIX/esUaUxCAxszYjIhDutjGXO0XAaTohDX3rrsrlt7Avwja',
-          credentials = client_id + ':' + client_secret;
-      fetch(URL, {
-        method: "POST",
-        cache: "default",
-        accept: "application/vnd.vimeo.*+json;version=3.4",
-        ContentType: "application/json",
-        Authorization: 'basic ' + atob(credentials)
+    key: 'post',
+    value: function post(d) {
+      console.log('requested data = ' + d);
+      console.log('typeof data = ' + (typeof d === 'undefined' ? 'undefined' : _typeof(d)));
+      var data = { channel: d
+        // fetch('/api', {
+        //   // body: JSON.stringify(data),
+        //   body: d,
+        //   cache: "default",
+        //   headers: {
+        //     "Content-type": "application/x-www-form-urlencoded; charset-UTF-8"
+        //     // 'Content-Type': 'application/json'
+        //   },
+        //   method: "POST"
+        // })
+        // .then( res => {
+        //   console.log(`Accepted response: ${JSON.stringify(res.json())}`)
+        //   return res.json()
+        // })
+        // .then(json => {
+        //   console.log(`json = ${JSON.stringify(json)}`)
+        // })
+        // .catch(error => {
+        //   console.log(`${error}: failed to fetch from ${ URL }`)
+        //   console.dir(error)
+        // })
+
+      };external__axios__default.a.post('/api', {
+        data: d
       }).then(function (res) {
-        console.log('called ' + URL);
-        return res.json();
-      }).then(function (json) {
-        console.log('json = ' + JSON.stringify(json));
+        console.log('res = ' + res);
       }).catch(function (error) {
-        console.log(error + ': failed to fetch from ' + URL);
-        console.dir(error);
+        console.log('error: ' + error);
       });
     }
   }, {
     key: 'request',
     value: function request() {
-      var URL = 'https://api.vimeo.com/channels',
+      var _this2 = this;
 
-      // authToken = "7962960ba98f28b871cfe391e88f65f3"
-      // authToken = "d21ab739c3d0b5c0906ec55ef1d6da28"
-      authToken = "af9d6f3e23c4aaaa1b3d35a8ea73d25e";
-      fetch(URL, {
+      // axios.get('/api', {
+
+      //   })
+      //   .then( res => {
+      //     console.log('axios get res = ' + res)
+      //   })
+      //   .catch( error => {
+      //     console.log('axios error = ' + error)
+      //   })
+
+      fetch('/api', {
         method: "GET",
-        cache: "default",
-        accept: "application/vnd.vimeo.*+json;version=3.4",
-        ContentType: "application/json",
-        Authorization: 'Bearer ' + authToken + ' https://api.vimeo.com'
+        cache: "default"
       }).then(function (res) {
-        console.log('called ' + URL);
+        console.log('res -> JSON.stringify(res.json()) = ' + JSON.stringify(res.json()));
         return res.json();
       }).then(function (json) {
-        console.log('json = ' + JSON.stringify(json));
+        console.log('json = ' + json);
+        _this2.setState({
+          data: json
+        });
       }).catch(function (error) {
         console.log(error + ': failed to fetch from ' + URL);
         console.dir(error);
@@ -201,9 +282,9 @@ var App_App = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
-      var query = this.state.query;
+      var featuredChannel = this.state.featuredChannel;
 
 
       return external__react__default.a.createElement(
@@ -221,7 +302,7 @@ var App_App = function (_Component) {
           external__react__default.a.createElement(
             external__reactstrap_["Col"],
             { xs: { size: 4, offset: 4 } },
-            external__react__default.a.createElement(external__reactstrap_["Input"], { type: 'text', name: 'text', style: { width: '100%', height: '180px', fontSize: '80px' }, value: query, onChange: this.handleRequest })
+            external__react__default.a.createElement(external__reactstrap_["Input"], { type: 'text', name: 'text', style: { width: '100%', height: '180px', fontSize: '80px' }, placeholder: 'channel', value: featuredChannel, onChange: this.handleRequest })
           ),
           external__react__default.a.createElement(external__reactstrap_["Col"], { xs: '4' })
         ),
@@ -234,14 +315,14 @@ var App_App = function (_Component) {
             external__react__default.a.createElement(
               external__reactstrap_["Button"],
               { outline: true, color: 'primary', style: { width: '100%', height: '180px', fontSize: '80px' }, onClick: function onClick() {
-                  return _this2.getAuth();
+                  return _this3.post(featuredChannel);
                 } },
-              'getAuth'
+              'Post'
             ),
             external__react__default.a.createElement(
               external__reactstrap_["Button"],
               { outline: true, color: 'primary', style: { width: '100%', height: '180px', fontSize: '80px' }, onClick: function onClick() {
-                  return _this2.request();
+                  return _this3.request(featuredChannel);
                 } },
               'Request'
             )
@@ -291,6 +372,12 @@ module.exports = require("next/head");
 /***/ (function(module, exports) {
 
 module.exports = require("reactstrap");
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
 
 /***/ })
 /******/ ]);
